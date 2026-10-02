@@ -2,3 +2,5 @@ huggingface_hub.db*
 hf_export_*.jsonl
 run.log
 __pycache__/
+hf_dataset/
+out/

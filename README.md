@@ -33,3 +33,14 @@ SELECT entity, pages, done, updated_at FROM sync_state;   -- crawl progress
 ```
 
 `raw_json` holds the full API record, including `pipeline_tag` / `library_name` (models), `gated` (models, datasets) and `sdk` (Spaces).
+
+## Publishing to the Hugging Face Hub
+
+`upload_to_hf.py` converts the finished export to zstd Parquet (one config each for `models`, `datasets` and `spaces`, sharded at 1M rows), writes a dataset card, and uploads it. The repo is created private unless you pass `--public`. `HF_TOKEN` needs write access to the target namespace.
+
+```bash
+python upload_to_hf.py --repo-id thinkevolve/hf-hub-metadata
+python upload_to_hf.py --repo-id thinkevolve/hf-hub-metadata --no-upload   # just build hf_dataset/
+```
+
+It refuses to run until all three entity types have finished syncing.
