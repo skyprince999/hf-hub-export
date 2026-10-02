@@ -1,1 +1,1 @@
-huggingface_hub>=0.20
+requests>=2.28
